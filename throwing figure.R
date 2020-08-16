@@ -1,4 +1,4 @@
-# Importing thesis data from excel (by absolute throw)
+# Importing overhand throwing score thesis data from excel
 
 library('readxl')
 library('ggplot2')
@@ -8,65 +8,39 @@ library('dslabs')
 throwing <- read_excel('C:\\Users\\jacqu\\Documents\\las vegas\\unlv\\thesis\\Data Collection\\Data Analysis\\Data Analysis.xlsx', sheet = 'line')
 
 
-# Boxplot with dotplot
+# dotplot
   
-throwing %>% ggplot(aes(x = block, y = score)) + 
-  geom_boxplot(alpha = 0, width = 0.5, position = position_dodge(width = 0.5)) +
-  stat_boxplot(geom = "errorbar", position = position_dodge(width = 0.5), width = 0.2) + 
-  geom_dotplot(
-    binaxis = "y", 
-    stackdir = "center", 
-    stackratio = 1, 
-    binpositions = "all",
-    position = position_dodge(width = .45),
-    dotsize = .75,
-    aes(fill = Group)) + 
-  scale_color_manual(values = c("black","grey")) + 
-  scale_fill_manual(values = c("black", "grey")) +
-  scale_y_continuous(name="Mean Score / Participant", breaks = c(0:8), limit = c(0,8)) +
-  stat_summary(fun = mean,
-               aes(group = Group),
-               position = position_dodge(width =1),
-               color = "green", 
-               size = 0.75) +
-  xlab("Blocks") +
-  ggtitle("Throwing Scores")
-
-
-## Boxplot with points
-
-throwing %>% ggplot(aes(x = block, y = score)) + 
-  geom_point(aes(color = Group), size = 3) +
-  scale_color_manual(values = c("black","dark grey")) + 
-  geom_boxplot(alpha = 0) +
-  scale_y_continuous(name="Mean score per participant", breaks = c(0:8), limit = c(0,8)) +
-  stat_summary(fun = mean,
-               aes(group = Group),
-               position = position_dodge(width =1),
-               color = "green", 
-               size = 0.6) +
-  xlab("Blocks") +
-  ggtitle("Throwing Scores")
-
-
-# Importing original thesis data from excel (by block)
-
-blocks <- read_excel('C:\\Users\\jacqu\\Documents\\las vegas\\unlv\\thesis\\Data Collection\\Data Analysis\\Data Analysis.xlsx', sheet = 'R')
-
-optimal <- blocks %>% filter(group == "OPTIMAL") #OPTIMAL group
-control <- blocks %>% filter(group == "Control") #Control group
-
-ob1 <- mean(optimal$Block1) #mean of optimal block 1
-ob2 <- mean(optimal$Block2) #mean of optimal block 2
-ob3 <- mean(optimal$Block3) #mean of optimal block 3
-ob4 <- mean(optimal$Block4) #mean of optimal block 4
-ob5 <- mean(optimal$Block5) #mean of optimal block 5
-
-cb1 <- mean(control$Block1) #mean of control block 1
-cb2 <- mean(control$Block2) #mean of control block 2
-cb3 <- mean(control$Block3) #mean of control block 3
-cb4 <- mean(control$Block4) #mean of control block 4
-cb5 <- mean(control$Block5) #mean of control block 5
-
+throwing %>% ggplot(aes(x = block, y = score)) + #creates the ggplot
+ # geom_boxplot(alpha = 0, width = .8) + #creates boxplot, alpha sets transparency, width adjusts spaces between boxplots
+ # stat_boxplot(geom = "errorbar", width = 0.2) + #creates error bars with specified width for whiskers
+  geom_dotplot( #creates dotplot
+    binaxis = "y", #puts the dots along the y-axis
+    stackdir = "center",#centers the dots
+    stackratio = 1, #stacks the dots
+    binpositions = "all", #shows dots of the groups
+    position = position_dodge(width = .7), #adjustst the spacing of the dots between the groups
+    dotsize = .85, #size of the dots
+    aes(fill = Group)) + #allows the groups to be represented by the dots
+  scale_fill_manual(values = c("black", "grey")) + #colors the dots with specified colors
+  scale_y_continuous(name="Mean Score / Participant", #names the y-axis
+    breaks = c(0:8), #adds tick marks for each value
+    limit = c(0,8)) +  #set the min and max values for y-axis
+  stat_summary(fun = mean,  #creates a dot at the mean
+    aes(group = Group),    #creates a mean value for each group
+    size = .75,    #changes mean dot size,
+    position = position_dodge(width = 1.3),    #moves the mean dot away from the midline
+    color = "black",    #changes the shape outline color
+    fill = "white",    #changes the shape fill color
+    shape = 21, #shape creates a circle
+    stroke = 1.5) + #stroke controls the boarder thickness
+  geom_point(aes(size = "Mean"), #creates new dots w/ legend 
+    alpha = 0, #transparency
+    fill = "white", #fills dots with white
+    shape = 21, #changes the shape to diamond
+    stroke = 1.5) + #boarder thickness
+  guides(size = guide_legend(override.aes = list(alpha = 1))) + #overrides legend transparency
+  theme(legend.title=element_blank()) + #removes legend titles
+  xlab("Blocks") + #labels x-axis
+  ggtitle("Throwing Scores") #labels title
 
 
