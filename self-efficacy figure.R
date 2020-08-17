@@ -5,6 +5,7 @@ library('ggplot2')
 library('tidyverse')
 library('dplyr')
 library('dslabs')
+library('ggthemes')
 se <- read_excel('C:\\Users\\jacqu\\Documents\\las vegas\\unlv\\thesis\\Data Collection\\Data Analysis\\Data Analysis.xlsx', sheet = 'SE')
 
 
@@ -40,6 +41,9 @@ se %>% ggplot(aes(x = blocks, y = score)) + #creates the ggplot
     stroke = 1.5) + #boarder thickness
   guides(fill = guide_legend(order = 1), size = guide_legend(order = 2)) + 
   guides(size = guide_legend(override.aes = list(alpha = 1))) + #overrides legend transparency
-  theme(legend.title=element_blank()) + #removes legend titles
   xlab("Blocks") + #labels x-axis
-  ggtitle("Self-Efficacy Scores") #labels title  
+  ggtitle("Self-Efficacy Scores") + #labels title
+  theme_fivethirtyeight() + 
+  theme(axis.title = element_text()) + 
+  ylab('Mean Score / Participant') +
+  theme(legend.title=element_blank())  #removes legend titles

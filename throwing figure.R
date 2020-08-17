@@ -27,7 +27,7 @@ throwing %>% ggplot(aes(x = block, y = score)) + #creates the ggplot
     limit = c(0,8)) +  #set the min and max values for y-axis
   stat_summary(fun = mean,  #creates a dot at the mean
     aes(group = Group),    #creates a mean value for each group
-    size = .75,    #changes mean dot size,
+    size = .85,    #changes mean dot size,
     position = position_dodge(width = 1.3),    #moves the mean dot away from the midline
     color = "black",    #changes the shape outline color
     fill = "white",    #changes the shape fill color
@@ -40,8 +40,12 @@ throwing %>% ggplot(aes(x = block, y = score)) + #creates the ggplot
     stroke = 1.5) + #boarder thickness
   guides(fill = guide_legend(order = 1), size = guide_legend(order = 2)) +  
   guides(size = guide_legend(override.aes = list(alpha = 1))) + #overrides legend transparency
-  theme(legend.title=element_blank()) + #removes legend titles
   xlab("Blocks") + #labels x-axis
-  ggtitle("Throwing Scores") #labels title
+  ggtitle("Self-Efficacy Scores") + #labels title
+  theme_fivethirtyeight() + 
+  theme(axis.title = element_text()) + 
+  ylab('Mean Score / Participant') +
+  theme(legend.title=element_blank())  #removes legend titles
+
 
 
