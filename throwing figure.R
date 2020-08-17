@@ -33,11 +33,12 @@ throwing %>% ggplot(aes(x = block, y = score)) + #creates the ggplot
     fill = "white",    #changes the shape fill color
     shape = 21, #shape creates a circle
     stroke = 1.5) + #stroke controls the boarder thickness
-  geom_point(aes(size = "Mean"), #creates new dots w/ legend 
+  geom_point(aes(size = "Group Mean"), #creates new dots w/ legend 
     alpha = 0, #transparency
     fill = "white", #fills dots with white
     shape = 21, #changes the shape to diamond
     stroke = 1.5) + #boarder thickness
+  guides(fill = guide_legend(order = 1), size = guide_legend(order = 2)) +  
   guides(size = guide_legend(override.aes = list(alpha = 1))) + #overrides legend transparency
   theme(legend.title=element_blank()) + #removes legend titles
   xlab("Blocks") + #labels x-axis
