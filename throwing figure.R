@@ -11,27 +11,25 @@ throwing <- read_excel('C:\\Users\\jacqu\\Documents\\las vegas\\unlv\\thesis\\Da
 # dotplot
   
 throwing %>% ggplot(aes(x = block, y = score, order = factor(Group))) + #creates the ggplot
-  geom_boxplot(alpha = 0, #transparent boxplot
-    width = .8) + #adjusts spaces between boxplots
-  # stat_boxplot(geom = "errorbar", width = 0.2) + #creates error bars with specified width for whiskers
+  geom_boxplot(alpha = 0, width = .8) + #adjusts spaces between boxplots
   geom_dotplot( #creates dotplot
     binaxis = "y", #puts the dots along the y-axis
     stackdir = "center",#centers the dots
     stackratio = 1, #stacks the dots
     binpositions = "all", #shows dots of the groups
     position = position_dodge(width = .785), #adjustst the spacing of the dots between the groups
-    dotsize = .85, #size of the dots
+    dotsize = .65, #size of the dots
     aes(fill = Group)) + #allows the groups to be represented by the dots
   scale_fill_manual(values = c("black", "grey")) + #colors the dots with specified colors
   scale_y_continuous(name="Scores", #names the y-axis
     breaks = c(0:8), #adds tick marks for each value
     limit = c(0,8)) +  #set the min and max values for y-axis
   stat_summary(fun = mean,  #creates a dot at the mean
-    aes(group = Group),    #creates a mean value for each group
-    size = .85,    #changes mean dot size,
-    position = position_dodge(width = 1.3),    #moves the mean dot away from the midline
-    color = "black",    #changes the shape outline color
-    fill = "white",    #changes the shape fill color
+    aes(group = Group), #creates a mean value for each group
+    size = .5,    #changes mean dot size,
+    position = position_dodge(width = .785), #moves the mean dot away from the midline
+    color = "black", #changes the shape outline color
+    fill = "white", #changes the shape fill color
     shape = 21, #shape creates a circle
     stroke = 1.5) + #stroke controls the boarder thickness
   geom_point(aes(size = "Group Mean"), #creates new dots w/ legend 
@@ -39,12 +37,10 @@ throwing %>% ggplot(aes(x = block, y = score, order = factor(Group))) + #creates
     fill = "white", #fills dots with white
     shape = 21, #changes the shape to diamond
     stroke = 1.5) + #boarder thickness
-  guides(fill = guide_legend(order = 1), size = guide_legend(order = 2)) +  
+  guides(fill = guide_legend(order = 1), size = guide_legend(order = 2)) + 
   guides(size = guide_legend(override.aes = list(alpha = 1))) + #overrides legend transparency
- # xlab("Blocks") + #labels x-axis
-  ggtitle("Throwing Scores") + #labels title
-  theme_fivethirtyeight() + 
-  theme(axis.title = element_text()) +
-  theme(legend.title=element_blank()) +  #removes legend titles
+  theme_bw() + 
+  theme(axis.title = element_text()) + 
+  theme(legend.title=element_blank()) + #removes legend titles
   theme(axis.title.x = element_blank()) #removes x-axis label
 
