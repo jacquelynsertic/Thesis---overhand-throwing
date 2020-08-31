@@ -21,12 +21,12 @@ throwing %>% ggplot(aes(x = block, y = score, order = factor(Group))) + #creates
     dotsize = .65, #size of the dots
     aes(fill = Group)) + #allows the groups to be represented by the dots
   scale_fill_manual(values = c("black", "grey")) + #colors the dots with specified colors
-  scale_y_continuous(name="Scores", #names the y-axis
+  scale_y_continuous(name="Throwing Scores", #names the y-axis
     breaks = c(0:8), #adds tick marks for each value
     limit = c(0,8)) +  #set the min and max values for y-axis
   stat_summary(fun = mean,  #creates a dot at the mean
     aes(group = Group), #creates a mean value for each group
-    size = .5,    #changes mean dot size,
+    size = .5, #changes mean dot size,
     position = position_dodge(width = .785), #moves the mean dot away from the midline
     color = "black", #changes the shape outline color
     fill = "white", #changes the shape fill color
@@ -42,5 +42,6 @@ throwing %>% ggplot(aes(x = block, y = score, order = factor(Group))) + #creates
   theme_bw() + 
   theme(axis.title = element_text()) + 
   theme(legend.title=element_blank()) + #removes legend titles
-  theme(axis.title.x = element_blank()) #removes x-axis label
+  theme(axis.title.x = element_blank()) + #removes x-axis label
+  theme(text = element_text(size=20)) #changes the size of the text 
 

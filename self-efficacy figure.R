@@ -23,7 +23,7 @@ se %>% ggplot(aes(x = blocks, y = score, order = factor(Group))) + #creates the 
     dotsize = .65, #size of the dots
     aes(fill = Group)) + #allows the groups to be represented by the dots
   scale_fill_manual(values = c("black", "grey")) + #colors the dots with specified colors
-  scale_y_continuous(name="Scores", #names the y-axis
+  scale_y_continuous(name="Self-Efficacy Scores", #names the y-axis
     breaks = c(0:10), #adds tick marks for each value
     limit = c(0,10)) + #set the min and max values for y-axis
   stat_summary(fun = mean, #creates a dot at the mean
@@ -44,5 +44,6 @@ se %>% ggplot(aes(x = blocks, y = score, order = factor(Group))) + #creates the 
   theme_bw() +
   theme(axis.title = element_text()) +
   theme(legend.title=element_blank()) + #removes legend titles
-  theme(axis.title.x = element_blank()) #removes x-axis label
+  theme(axis.title.x = element_blank()) + #removes x-axis label
+  theme(text = element_text(size=20)) #changes the size of the text 
   
